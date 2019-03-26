@@ -2,10 +2,13 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
+        <title>{% block title %}Notapad{% endblock %}</title>
+        {% block stylesheets %}
+         <link rel="stylesheet" type="text/css" href="/build/app.css">
+        {% endblock %}
     </head>
     <body>
+        <h1>Notapad</h1>
         {% block body %}
         <div id="app">Oups... Problème</div>
         {% endblock %}

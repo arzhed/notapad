@@ -42,6 +42,8 @@ Encore
     .enableVersioning(Encore.isProduction())
     .enableVueLoader()
 
+    .enableSassLoader()
+
     // enables Sass/SCSS support
     //.enableSassLoader()
 

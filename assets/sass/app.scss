@@ -1,0 +1,47 @@
+body {
+
+    font-family: "Liberation Sans";
+
+    h1 {
+        text-align: center;
+    }
+
+    .notes {
+        display: inline-block;
+    }
+
+    .notes-format {
+        display: inline-block;
+        // display: flex;
+        width: 10rem;
+
+        margin-right: 0.5rem;
+        margin-left: 0.5rem;
+        margin-bottom: 0.5rem;
+
+        box-sizing: border-box;
+        padding-right: 1rem;
+        padding-left: 1rem;
+    }
+
+    #newnote {
+        background-color: black;
+        color: white;
+        cursor: pointer;
+
+        height: 10rem;
+        // font-size: 4rem;
+        // font-weight: bold;
+
+    }
+
+    .note {
+        background-color: lightblue;
+        // width: 20rem;
+        min-height: 10rem;
+        border: solid 1px black;
+        // flex: 0 0 auto;
+
+
+    }
+}
