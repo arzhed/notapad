@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Note;
+use App\Entity\Board;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
@@ -17,6 +18,18 @@ class NoteRepository extends ServiceEntityRepository
     public function __construct(RegistryInterface $registry)
     {
         parent::__construct($registry, Note::class);
+    }
+
+    public function create(Board $board) : Note
+    {
+        $note = new Note;
+        $note->setBoardId($board);
+        $note->setDescription('');
+
+        $this->getEntityManager()->persist($note);
+        $this->getEntityManager()->flush();
+
+        return $note;
     }
 
     // /**

@@ -9,6 +9,15 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Note
 {
+
+    public function readAsArray() {
+        return [
+            'id'          => $this->getId(),
+            'description' => $this->getDescription(),
+            'bid'         => $this->getBoardId()->getCode()
+        ];
+    }
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -20,12 +29,17 @@ class Note
      * @ORM\ManyToOne(targetEntity="App\Entity\Board", inversedBy="note")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $box_id;
+    private $board_id;
 
     /**
      * @ORM\Column(type="datetime")
      */
     private $created_at;
+
+    /**
+     * @ORM\Column(type="text")
+     */
+    private $description;
 
     public function __construct()
     {
@@ -37,14 +51,14 @@ class Note
         return $this->id;
     }
 
-    public function getBoxId(): ?Board
+    public function getBoardId(): ?Board
     {
-        return $this->box_id;
+        return $this->board_id;
     }
 
-    public function setBoxId(?Board $box_id): self
+    public function setBoardId(?Board $board_id): self
     {
-        $this->box_id = $box_id;
+        $this->board_id = $board_id;
 
         return $this;
     }
@@ -57,6 +71,18 @@ class Note
     public function setCreatedAt(\DateTimeInterface $created_at): self
     {
         $this->created_at = $created_at;
+
+        return $this;
+    }
+
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+    public function setDescription(string $description): self
+    {
+        $this->description = $description;
 
         return $this;
     }
