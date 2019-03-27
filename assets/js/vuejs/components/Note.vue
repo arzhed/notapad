@@ -1,15 +1,26 @@
 <template>
   <div class="note notes-format">
-    {{ msg }}
+    <div class="note-content" contenteditable="true" @input="content = $event.target.innerText" @focus="focus" @blur="blur">
+      {{ content }}
+    </div>
   </div>
 </template>
 
 <script>
 export default {
   name: 'note',
+  props: ['retrievedContent'],
   data () {
     return {
-      msg: 'Welcome to Your Vue.js App'
+      content: this.retrievedContent
+    }
+  },
+  methods : {
+    focus () {
+      console.log('focus')
+    },
+    blur () {
+      console.log('blur')
     }
   }
 }
