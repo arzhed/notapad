@@ -1,21 +1,24 @@
 <template>
-  <div class="note notes-format">
-    <div class="note-content" contenteditable="true" @input="content = $event.target.innerText" @focus="focus" @blur="blur">
-      {{ content }}
-    </div>
+  <div class="note notes-format" contenteditable="true" @input="update" @focus="focus" @blur="blur" @keydown="moveCursor">
   </div>
 </template>
 
 <script>
 export default {
   name: 'note',
-  props: ['retrievedContent', 'id', 'bid'],
+  props: ['content', 'id', 'bid'],
+  mounted() {
+    this.$el.innerText = this.content;
+  },
   data () {
     return {
-      content: this.retrievedContent
+        
     }
   },
   methods : {
+    update:function(event){
+      this.$emit('update', event.target.innerText);
+    },
     focus () {
       console.log('focus')
     },
