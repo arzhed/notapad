@@ -19,11 +19,17 @@ class NoteController extends AbstractController
      */
     public function create(Request $request)
     {
+        $response = new Response;
+
+        $params = json_decode($request->getContent(), true);
+        if (!isset($params['bid'])) {
+            return $response->setStatusCode(Response::HTTP_BAD_REQUEST);
+        }
+
         $board = $this->getDoctrine()
                       ->getRepository(Board::class)
-                      ->findOneByCode($request->request->get('bid'));
+                      ->findOneByCode($params['bid']);
 
-        $response = new Response;
         if (!$board) {
             return $response->setStatusCode(Response::HTTP_NOT_FOUND);
         }
@@ -38,13 +44,32 @@ class NoteController extends AbstractController
     /**
      * @Route("/note", name="note_read", methods={"GET"})
      */
-    public function read(Request $request)
+    public function index(Request $request)
     {
-        echo 'read';
+        $response = new Response;
+
+        $bid = $request->query->get('bid');
+        if (!$bid) {
+            return $response->setStatusCode(Response::HTTP_BAD_REQUEST);
+        }
+
+        $board = $this->getDoctrine()
+                      ->getRepository(Board::class)
+                      ->findOneByCode($bid);
+
+        if (!$board) {
+            return $response->setStatusCode(Response::HTTP_NOT_FOUND);
+        }
+
+        $notes = $board->getNote()->map(function($noteEntity) {
+            return $noteEntity->readAsArray();
+        })->toArray();
+
+        return $response->setContent(json_encode($notes));
     }
 
     /**
-     * @Route("/note", name="note_read", methods={"DELETE"})
+     * @Route("/note", name="note_delete", methods={"DELETE"})
      */
     public function delete(Request $request)
     {

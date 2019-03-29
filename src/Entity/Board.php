@@ -29,7 +29,7 @@ class Board
     private $created_at;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Note", mappedBy="box_id", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="App\Entity\Note", mappedBy="board_id", orphanRemoval=true)
      */
     private $note;
 

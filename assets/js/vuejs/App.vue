@@ -1,7 +1,7 @@
 <template>
   <div id="app-vue">
       <div class="notes">
-        <note v-for="(note, id) in notes" v-bind:key="id" retrieved-content="aaa"></note>
+        <note v-for="(note) in notes" v-bind:key="note.id" v-bind:id="note.id" :retrieved-content="note.description" ></note>
         <div id="newnote" class="note notes-format" @click="createNote">
           <div class="note-content">+</div>
         </div>
@@ -18,6 +18,13 @@ export default {
     components: {
         Note
     },
+    mounted () {
+        const urlParams = new URLSearchParams(window.location.search);
+        var vm = this;
+        this.axios.get('/note?bid=' + urlParams.get('bid')).then(function(res) {
+            vm.notes = vm.notes.concat(res.data);
+        });
+    },
     data () {
         return {
             notes: []
@@ -25,7 +32,11 @@ export default {
     },
     methods: {
         createNote () {
-            this.notes.push({})
+            const urlParams = new URLSearchParams(window.location.search);
+            var vm = this;
+            this.axios.post('/note', {'bid' : urlParams.get('bid')}).then(function(res) {
+                vm.notes.push(res.data)
+            })
         }
     }
 }

@@ -9,7 +9,7 @@
 <script>
 export default {
   name: 'note',
-  props: ['retrievedContent'],
+  props: ['retrievedContent', 'id'],
   data () {
     return {
       content: this.retrievedContent
