@@ -1,7 +1,7 @@
 <template>
   <div id="app-vue">
       <div class="notes">
-        <note v-for="(note) in notes" v-bind:key="note.id" v-bind:id="note.id" :retrieved-content="note.description" ></note>
+        <note v-for="(note) in notes" v-bind:key="note.id" v-bind:id="note.id" :retrieved-content="note.description" :bid="note.bid" ></note>
         <div id="newnote" class="note notes-format" @click="createNote">
           <div class="note-content">+</div>
         </div>

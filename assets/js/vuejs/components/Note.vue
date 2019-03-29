@@ -9,7 +9,7 @@
 <script>
 export default {
   name: 'note',
-  props: ['retrievedContent', 'id'],
+  props: ['retrievedContent', 'id', 'bid'],
   data () {
     return {
       content: this.retrievedContent
@@ -20,7 +20,12 @@ export default {
       console.log('focus')
     },
     blur () {
-      console.log('blur')
+      this.axios.put('/note/'+this.id, {
+          'bid': this.bid,
+          'description' : this.content
+      }).then(function(res) {
+         console.log('put', res)
+      });
     }
   }
 }

@@ -69,6 +69,29 @@ class NoteController extends AbstractController
     }
 
     /**
+     * @Route("/note/{note}", name="note_update", methods={"PUT"})
+     */
+    public function update(Note $note, Request $request)
+    {
+        $response = new Response;
+
+        $params = json_decode($request->getContent(), true);
+        if (!isset($params['bid']) || $note->getBoardId()->getCode() != $params['bid']) {
+            return $response->setStatusCode(Response::HTTP_UNAUTHORIZED);
+        }
+
+        if (!isset($params['description'])) {
+            return $response->setStatusCode(Response::HTTP_BAD_REQUEST);
+        }
+
+        $note->setDescription($params['description']);
+        $this->getDoctrine()->getManager()->persist($note);
+        $this->getDoctrine()->getManager()->flush();
+
+        return $response->setContent(json_encode($note->readAsArray()));
+    }
+
+    /**
      * @Route("/note", name="note_delete", methods={"DELETE"})
      */
     public function delete(Request $request)
