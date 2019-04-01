@@ -35,6 +35,10 @@ body {
         background-color: lightblue;
         min-height: 10rem;
         border: solid 1px black;
+
+        .note-content {
+            height: 100%;
+        }
       }
     }
 
