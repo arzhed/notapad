@@ -92,10 +92,20 @@ class NoteController extends AbstractController
     }
 
     /**
-     * @Route("/note", name="note_delete", methods={"DELETE"})
+     * @Route("/note/{note}", name="note_delete", methods={"DELETE"})
      */
-    public function delete(Request $request)
+    public function delete(Note $note, Request $request)
     {
-        echo 'read';
+        $response = new Response;
+
+        $bid = $request->query->get('bid');
+        if ($note->getBoardId()->getCode() != $bid) {
+            return $response->setStatusCode(Response::HTTP_UNAUTHORIZED);
+        }
+
+        $this->getDoctrine()->getManager()->remove($note);
+        $this->getDoctrine()->getManager()->flush();
+
+        return $response;
     }
 }

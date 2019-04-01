@@ -1,7 +1,7 @@
 <template>
   <div id="app-vue">
       <div class="notes">
-        <note v-for="(note) in notes" v-bind:key="note.id" v-bind:id="note.id" :content="note.description" :bid="note.bid" @update="note.description = $event"></note>
+        <note v-for="(note, key) in notes" v-bind:key="key" :rkey="key" v-bind:id="note.id" :content="note.description" :bid="note.bid" @update="note.description = $event" @deletednote="deletedNote"></note>
         <div id="newnote" class="note notes-format" @click="createNote">
           <div class="note-content">+</div>
         </div>
@@ -37,6 +37,9 @@ export default {
             this.axios.post('/note', {'bid' : urlParams.get('bid')}).then(function(res) {
                 vm.notes.push(res.data)
             })
+        },
+        deletedNote(key) {
+            this.notes.splice(key, 1);
         }
     }
 }
