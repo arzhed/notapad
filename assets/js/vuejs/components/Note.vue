@@ -22,7 +22,6 @@ export default {
   },
   methods : {
     update:function(event){
-      this.content = event;
       this.$emit('update', event);
     },
     deleteNote () {
