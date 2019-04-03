@@ -1,5 +1,5 @@
 <template>
-  <div class="note-content" contenteditable="true" @input="update" @focus="focus" @blur="blur">
+  <div :id="htmlId" class="note-content" contenteditable="true" @input="update" @blur="blur" @keyup.enter="forceBlur">
   </div>
 </template>
 
@@ -10,6 +10,11 @@ export default {
   mounted() {
     this.$el.innerText = this.content;
   },
+  computed : {
+    htmlId () {
+        return 'note-content-'+this.id;
+    }
+  },
   data () {
     return {
 
@@ -19,8 +24,10 @@ export default {
     update:function(event){
       this.$emit('update', event.target.innerText);
     },
-    focus () {
-      console.log('focus')
+    forceBlur (event) {
+        document.querySelector('#' + this.htmlId).blur()
+        event.preventDefault()
+        event.stopPropagation()
     },
     blur () {
       this.axios.put('/note/'+this.id, {

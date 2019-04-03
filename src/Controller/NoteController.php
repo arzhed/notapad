@@ -80,11 +80,13 @@ class NoteController extends AbstractController
             return $response->setStatusCode(Response::HTTP_UNAUTHORIZED);
         }
 
-        if (!isset($params['description'])) {
-            return $response->setStatusCode(Response::HTTP_BAD_REQUEST);
+        if (isset($params['description'])) {
+            $note->setDescription($params['description']);
+        }
+        if (isset($params['color'])) {
+            $note->setColor($params['color']);
         }
 
-        $note->setDescription($params['description']);
         $this->getDoctrine()->getManager()->persist($note);
         $this->getDoctrine()->getManager()->flush();
 

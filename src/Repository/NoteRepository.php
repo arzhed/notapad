@@ -25,6 +25,7 @@ class NoteRepository extends ServiceEntityRepository
         $note = new Note;
         $note->setBoardId($board);
         $note->setDescription('');
+        $note->setColor('blue');
 
         $this->getEntityManager()->persist($note);
         $this->getEntityManager()->flush();

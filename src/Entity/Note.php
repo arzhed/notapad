@@ -14,7 +14,8 @@ class Note
         return [
             'id'          => $this->getId(),
             'description' => $this->getDescription(),
-            'bid'         => $this->getBoardId()->getCode()
+            'bid'         => $this->getBoardId()->getCode(),
+            'color'       => $this->getColor()
         ];
     }
 
@@ -40,6 +41,11 @@ class Note
      * @ORM\Column(type="text")
      */
     private $description;
+
+    /**
+     * @ORM\Column(type="string", length=30)
+     */
+    private $color;
 
     public function __construct()
     {
@@ -83,6 +89,18 @@ class Note
     public function setDescription(string $description): self
     {
         $this->description = $description;
+
+        return $this;
+    }
+
+    public function getColor(): ?string
+    {
+        return $this->color;
+    }
+
+    public function setColor(string $color): self
+    {
+        $this->color = $color;
 
         return $this;
     }

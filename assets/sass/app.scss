@@ -21,6 +21,8 @@ body {
       }
 
       #newnote {
+        text-align: center;
+        padding: 2rem;
         background-color: black;
         color: white;
         cursor: pointer;
@@ -32,13 +34,58 @@ body {
       }
 
       .note {
-        background-color: lightblue;
+        background-color:  #01B9FF;
         min-height: 10rem;
-        border: solid 1px black;
+        border: solid 3px black;
+        border-radius: 3px;
 
         .note-content {
-            height: 8rem;
+            padding: 0.3rem;
+            min-height: 6.8rem;
+            &:focus {
+                background-color: lightgrey;
+            }
+            border-bottom: 1px solid black;
         }
+
+        .bottom-note {
+            background-color: lightgrey;
+            padding: 0.3rem 1rem;
+            .bottom-button {
+                background-color: black;
+                color: white;
+                font-size: 1.4rem;
+            }
+
+            .colors {
+                list-style-type: none;
+                display: inline-block;
+                background-color: Gainsboro;
+                text-align: center;
+                border-radius: 2px;
+
+                .color {
+                    display: inline-block;
+                }
+            }
+        }
+
+      }
+
+      .note-blue {
+          background-color:  #01B9FF !important;
+      }
+
+      .note-red {
+          background-color:  #FF4949 !important;
+      }
+
+      .note-orange {
+          background-color:  #F38120 !important;
+      }
+
+      .note-pink {
+           background-color: #C36CFF !important;
       }
     }
 
